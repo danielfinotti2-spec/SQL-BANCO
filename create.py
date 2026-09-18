@@ -1,13 +1,25 @@
-import sqlite3
+from flask import Flask, render_template
 
-conn = sqlite3.connect('database.db')
-cursor = conn.cursor()
+app = Flask(__name__)
 
-cursor.execute(""" 
-    INSERT INTO user (u_name, u_email, u_password) 
-    VALUES ('Maria', 'maria@gemail.com', 'Senha@123') 
-""")
+# Curiosidade → print('------', type(__name__))
+# Curiosidade 2 → '@' se chama decorator
 
-conn.commit()
+@app.route("/")
+def index():
+    return render_template("index.html")
 
-conn.close() 
+
+@app.route("/sobre")
+def sobre():
+    return render_template("about.html")
+
+
+@app.route("/contato")
+def contato():
+    print("fumaça")
+    return "Estamos em contato"
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
